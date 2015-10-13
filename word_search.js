@@ -7,11 +7,7 @@ var words; //final words array
 var matrixArray = []; //final array for matrix
 var output = [];
 
-//------------------------------------
-/*
-read WordList file to import words into array
-filter(Boolean) removes empty strings
-*/
+//------------------------------------------------------
 var words = fs.readFileSync('WordList.txt', 'utf8');
 words = words.trim().toUpperCase().replace(removeWhitespace, '').split(removeSpaces);
 
@@ -22,6 +18,7 @@ var matrix = fs.readFileSync('WordSearch.txt', 'utf8').trim().split(removeSpaces
 var designation = ['LR', 'RL', 'U', 'D', 'DUL', 'DUR', 'DDL', 'DDR'];
 
 //------------------------------------------------------
+//Application Globals
 var wordToSearch;
 var startingCoordinate;
 var markCoordinates;
