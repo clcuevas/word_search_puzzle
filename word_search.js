@@ -12,15 +12,8 @@ var output = [];
 read WordList file to import words into array
 filter(Boolean) removes empty strings
 */
-// var wordsWithSpaces = fs.readFileSync('WordList.txt', 'utf8');
-// wordsWithSpaces = wordsWithSpaces.trim().toUpperCase().split(removeSpaces).filter(Boolean);
 var words = fs.readFileSync('WordList.txt', 'utf8');
 words = words.trim().toUpperCase().replace(removeWhitespace, '').split(removeSpaces);
-
-
-// wordsWithSpaces.forEach(function(word) {
-//   words.push(word.replace(removeWhitespace, ''));
-// });
 
 //read WordSearch file and convert to array
 var matrix = fs.readFileSync('WordSearch.txt', 'utf8').trim().split(removeSpaces);
@@ -59,71 +52,67 @@ var getLastCoordinate = function(directOption, word, row, col) {
 
 var getNextCoordinates = function(directionOption, word, markCoordinates) {
   //loop through remaining letters in the word we are searching for
-      for (var j = 1; j < word.length; j++) {
-
-        if (directionOption == 'LR') {
-          if (nextCoordinate == undefined) {
-            nextCoordinate = [markCoordinates[0], markCoordinates[1] + 1];
-          } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
-            nextCoordinate = [markCoordinates[0], markCoordinates[1] + 1];
-          }
-        } else if (directionOption == 'RL') {
-          if (nextCoordinate == undefined) {
-            nextCoordinate = [markCoordinates[0], markCoordinates[1] - 1];
-          } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
-            nextCoordinate = [markCoordinates[0], markCoordinates[1] - 1];
-          }
-        } else if (directionOption == 'U') {
-          if (nextCoordinate == undefined) {
-            nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1]];
-          } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
-            nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1]];
-          }
-        } else if (directionOption == 'D') {
-          if (nextCoordinate == undefined) {
-            nextCoordinate = [markCoordinates[0] + 1, markCoordinates[1]];
-          } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
-            nextCoordinate = [markCoordinates[0] + 1, markCoordinates[1]];
-          }
-        } else if (directionOption == 'DUL') {
-          if (nextCoordinate == undefined) {
-            nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1] - 1];
-          } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
-            nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1] - 1];
-          }
-        } else if (directionOption == 'DUR') {
-          if (nextCoordinate == undefined) {
-            nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1] + 1];
-          } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
-            nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1] + 1];
-          }
-        } else if (directionOption == 'DDL') {
-          if (nextCoordinate == undefined) {
-            nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1] - 1];
-          } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
-            nextCoordinate = [markCoordinates[0] + 1, markCoordinates[1] - 1];
-          }
-        } else if (directionOption == 'DDR') {
-          if (nextCoordinate == undefined) {
-            nextCoordinate = [markCoordinates[0] + 1, markCoordinates[1] + 1];
-          } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
-            nextCoordinate = [markCoordinates[0] + 1, markCoordinates[1] + 1];
-          }
-        } else {
-          console.log('nothing found here!');
-        }
-
-        // console.log(nextCoordinate[0], matrix.length);
-        // console.log(nextCoordinate[1], matrix[0].length);
-
-        if (word.charAt(j) == matrix[nextCoordinate[0]][nextCoordinate[1]]) {
-          markCoordinates = nextCoordinate;
-
-          if (nextCoordinate[0] == lastCoordinate[0] && nextCoordinate[1] == lastCoordinate[1]) {
-            output.push([word, directionOption, startingCoordinate]);
-          }
-        }
+  for (var j = 1; j < word.length; j++) {
+    if (directionOption == 'LR') {
+      if (nextCoordinate == undefined) {
+        nextCoordinate = [markCoordinates[0], markCoordinates[1] + 1];
+      } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
+        nextCoordinate = [markCoordinates[0], markCoordinates[1] + 1];
       }
+    } else if (directionOption == 'RL') {
+      if (nextCoordinate == undefined) {
+        nextCoordinate = [markCoordinates[0], markCoordinates[1] - 1];
+      } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
+        nextCoordinate = [markCoordinates[0], markCoordinates[1] - 1];
+      }
+    } else if (directionOption == 'U') {
+      if (nextCoordinate == undefined) {
+        nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1]];
+      } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
+        nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1]];
+      }
+    } else if (directionOption == 'D') {
+      if (nextCoordinate == undefined) {
+        nextCoordinate = [markCoordinates[0] + 1, markCoordinates[1]];
+      } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
+        nextCoordinate = [markCoordinates[0] + 1, markCoordinates[1]];
+      }
+    } else if (directionOption == 'DUL') {
+      if (nextCoordinate == undefined) {
+        nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1] - 1];
+      } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
+        nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1] - 1];
+      }
+    } else if (directionOption == 'DUR') {
+      if (nextCoordinate == undefined) {
+        nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1] + 1];
+      } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
+        nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1] + 1];
+      }
+    } else if (directionOption == 'DDL') {
+      if (nextCoordinate == undefined) {
+        nextCoordinate = [markCoordinates[0] - 1, markCoordinates[1] - 1];
+      } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
+        nextCoordinate = [markCoordinates[0] + 1, markCoordinates[1] - 1];
+      }
+    } else if (directionOption == 'DDR') {
+      if (nextCoordinate == undefined) {
+        nextCoordinate = [markCoordinates[0] + 1, markCoordinates[1] + 1];
+      } else if (nextCoordinate[0] < matrix.length || nextCoordinate[1] < matrix[0].length) {
+        nextCoordinate = [markCoordinates[0] + 1, markCoordinates[1] + 1];
+      }
+    } else {
+      console.log('nothing found here!');
+    }
+
+    if (word.charAt(j) == matrix[nextCoordinate[0]][nextCoordinate[1]]) {
+      markCoordinates = nextCoordinate;
+
+      if (nextCoordinate[0] == lastCoordinate[0] && nextCoordinate[1] == lastCoordinate[1]) {
+        output.push([word, directionOption, startingCoordinate]);
+      }
+    }
+  }
 };
 
 
